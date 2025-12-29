@@ -24,9 +24,14 @@
 		</header>
 
 		<!-- Gallery -->
-		<div class="space-y-16 md:space-y-24">
-			{#each images as image (image.id)}
+		<div>
+			{#each images as image, i (image.id)}
 				<GalleryCard {image} />
+				{#if i < images.length - 1}
+					<div class="my-16 text-center md:my-24">
+						<span class="font-['bebas-neue-pro'] text-2xl text-white/20 md:text-3xl">☩</span>
+					</div>
+				{/if}
 			{/each}
 		</div>
 	</div>
