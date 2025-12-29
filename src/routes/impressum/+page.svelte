@@ -1,3 +1,9 @@
+<svelte:head>
+	<title>Impressum - Lux in Tenebris</title>
+	<meta name="description" content="Impressum und rechtliche Angaben von Lux in Tenebris - CVJM Jugendkultur & Musik e.V." />
+	<meta name="robots" content="noindex, follow" />
+</svelte:head>
+
 <div class="min-h-screen w-full bg-black px-6 py-12 md:px-16 md:py-20">
 	<div class="mx-auto max-w-3xl">
 		<h1

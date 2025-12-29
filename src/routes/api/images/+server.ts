@@ -1,5 +1,5 @@
-import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 import type { DirectusResponse, DirectusPortfolioItem, DirectusFile, GalleryImage } from '$lib/types';
 
 const DIRECTUS_BASE_URL = 'https://directus.herhoffer.net';
@@ -31,26 +31,28 @@ function transformToGalleryImage(item: DirectusPortfolioItem, file: DirectusFile
 	};
 }
 
-export const load: PageServerLoad = async ({ fetch }) => {
+export const GET: RequestHandler = async ({ url, fetch }) => {
+	const offset = parseInt(url.searchParams.get('offset') || '0');
+	const limit = parseInt(url.searchParams.get('limit') || '10');
+
 	try {
-		// Build the Directus API query for initial batch of portfolio items
 		const params = new URLSearchParams({
 			'fields': 'id,photo,band_name,location,date,caption',
-			'limit': '10',
-			'offset': '0',
+			'limit': limit.toString(),
+			'offset': offset.toString(),
 			'sort': '-date'
 		});
 
-		const url = `${DIRECTUS_BASE_URL}/items/portfolio_images?${params.toString()}`;
+		const directusUrl = `${DIRECTUS_BASE_URL}/items/portfolio_images?${params.toString()}`;
 
-		const response = await fetch(url, {
+		const response = await fetch(directusUrl, {
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
 
 		if (!response.ok) {
-			throw error(response.status, `Failed to fetch images from Directus: ${response.statusText}`);
+			throw new Error(`Failed to fetch images from Directus: ${response.statusText}`);
 		}
 
 		const result: DirectusResponse = await response.json();
@@ -74,12 +76,12 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		const imagesResults = await Promise.all(imagesPromises);
 		const images: GalleryImage[] = imagesResults.filter((img): img is GalleryImage => img !== null);
 
-		return {
+		return json({
 			images,
-			hasMore: result.data.length === 10
-		};
+			hasMore: result.data.length === limit
+		});
 	} catch (err) {
 		console.error('Error loading gallery images:', err);
-		throw error(500, 'Failed to load gallery images');
+		return json({ error: 'Failed to load images' }, { status: 500 });
 	}
 };
