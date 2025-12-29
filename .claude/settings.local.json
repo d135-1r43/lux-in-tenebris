@@ -5,7 +5,9 @@
       "Bash(tree:*)",
       "Bash(cat:*)",
       "Bash(pnpm run check:*)",
-      "Bash(pnpm run dev)"
+      "Bash(pnpm run dev)",
+      "WebFetch(domain:directus.herhoffer.net)",
+      "Bash(curl:*)"
     ]
   }
 }

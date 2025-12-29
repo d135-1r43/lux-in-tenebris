@@ -148,17 +148,61 @@ font-family: bebas-neue-pro, sans-serif;
 }
 ```
 
-**gallery-data.ts** - Mock data
-- Currently uses placecats.com for demonstration
-- Array of 8 sample images with varied sizes
-- Replace with real concert photo data in production
+**gallery-data.ts** - Mock data (deprecated)
+- Legacy file with placecats.com mock data
+- Replaced by Directus CMS integration
+- Images now fetched server-side from Directus
 
 ### Layout Behavior
 - Black background (`bg-black`) throughout
 - Single column, centered layout with max-width constraint
 - Uniform typography using different font weights for hierarchy
-- ✛ symbols as decorative elements
+- ☩ symbols as decorative dividers
 - Smooth scroll behavior and hover effects
+
+## Directus CMS Integration
+
+### Overview
+The gallery fetches concert photos from a Directus headless CMS instance.
+
+**Base URL**: `https://directus.herhoffer.net`
+**Collection**: `portfolio_images`
+**Folder**: Lux in Tenebris (`45c69124-0ec6-4031-81a6-e0e78a2a33ad`)
+
+### Data Loading
+**File**: `src/routes/+page.server.ts`
+
+Server-side data loading using SvelteKit's load function:
+- Fetches from publicly accessible Directus REST API
+- Filters images by Lux in Tenebris folder UUID
+- Sorts by date (descending)
+- Transforms Directus schema to GalleryImage interface
+- Returns up to 100 images
+
+### Directus Schema
+```typescript
+{
+  id: string;              // UUID
+  image: {
+    filename_download: string;
+    width?: number;
+    height?: number;
+  };
+  band_name: string;       // Band name (e.g., "Lux in Tenebris")
+  location: string | null; // Festival/venue name
+  date: string;            // ISO date (YYYY-MM-DD)
+  caption: string | null;  // Optional caption
+}
+```
+
+### Data Transformation
+Directus items are transformed to GalleryImage format:
+- `image.filename_download` → full asset URL
+- `location` → `festival` (defaults to "CVJM" if null)
+- `band_name` → `band`
+- `date` → `year` (extracted from date string)
+
+**Note**: The Directus API is publicly accessible and does not require authentication.
 
 ## Build Output
 - Production build outputs to `.svelte-kit/` and `/build`
