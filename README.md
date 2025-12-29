@@ -1,38 +1,44 @@
-# sv
+# Lux in Tenebris
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A simple and clean, black background photo gallery showcasing high-quality concert photos from CVJM Jugendkultur & Musik e.V.
 
-## Creating a project
+Built with SvelteKit and Tailwind CSS for a minimal, elegant viewing experience that puts the photos front and center.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Tech Stack
 
-```sh
-# create a new project in the current directory
-npx sv create
+- **SvelteKit** - Modern web framework
+- **Svelte 5** - Using the latest runes syntax
+- **Tailwind CSS 4** - Utility-first styling
+- **TypeScript** - Type safety
 
-# create a new project in my-app
-npx sv create my-app
+## Development
+
+Install dependencies:
+
+```bash
+pnpm install
 ```
 
-## Developing
+Start the development server:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
+# or open browser automatically
 npm run dev -- --open
 ```
 
 ## Building
 
-To create a production version of your app:
+Build for production:
 
-```sh
+```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```bash
+npm run preview
+```
+
+The project uses `@sveltejs/adapter-node` for Node.js deployment.
