@@ -50,7 +50,12 @@ npm run preview
 src/
 ├── lib/            # Shared utilities and components
 │   ├── assets/     # Static assets (favicon, images)
-│   └── index.ts    # Library exports
+│   ├── components/ # Svelte components
+│   │   ├── Gallery.svelte      # Main gallery container
+│   │   └── GalleryCard.svelte  # Individual image card
+│   ├── gallery-data.ts  # Mock image data
+│   ├── types.ts         # TypeScript interfaces
+│   └── index.ts         # Library exports
 ├── routes/         # File-based routing (SvelteKit convention)
 │   ├── +layout.svelte  # Root layout wrapping all pages
 │   ├── +page.svelte    # Index route (/)
@@ -106,6 +111,54 @@ font-family: bebas-neue-pro, sans-serif;
 - Regular: `font-weight: 400` (normal and italic)
 - Middle: `font-weight: 500` (normal and italic)
 - Bold: `font-weight: 600` (normal and italic)
+
+## Gallery Components
+
+### Component Architecture
+
+**Gallery.svelte** - Main container component
+- Accepts `images` array via `$props()`
+- Single column layout (max-width 5xl, centered)
+- Generous vertical spacing between items (16-24 units)
+- Consistent presentation across all screen sizes
+
+**GalleryCard.svelte** - Individual image card
+- Accepts `image` object via `$props()`
+- Displays image with aspect ratio preservation
+- Caption below image with uniform font sizing:
+  - Band name (font-weight 200/light, 2xl-3xl, white)
+  - Festival/club name (font-weight 100/thin, 2xl-3xl, 40% opacity)
+  - Year (font-weight 100/thin, 2xl-3xl, 50% opacity)
+  - ✛ symbols as stylistic accents (30% and 20% opacity)
+- Subtle hover effect (scale 105%)
+
+### Data Structure
+
+**types.ts** - `GalleryImage` interface
+```typescript
+{
+  id: string;
+  url: string;
+  width: number;
+  height: number;
+  festival: string;
+  band: string;
+  year: number;
+  aspectRatio: number;
+}
+```
+
+**gallery-data.ts** - Mock data
+- Currently uses placecats.com for demonstration
+- Array of 8 sample images with varied sizes
+- Replace with real concert photo data in production
+
+### Layout Behavior
+- Black background (`bg-black`) throughout
+- Single column, centered layout with max-width constraint
+- Uniform typography using different font weights for hierarchy
+- ✛ symbols as decorative elements
+- Smooth scroll behavior and hover effects
 
 ## Build Output
 - Production build outputs to `.svelte-kit/` and `/build`
