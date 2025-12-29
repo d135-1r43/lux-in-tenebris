@@ -60,3 +60,35 @@ npm run preview
 ```
 
 The project uses `@sveltejs/adapter-node` for Node.js deployment.
+
+## Docker
+
+Build the Docker image locally:
+
+```bash
+docker build -t lux-in-tenebris .
+```
+
+Run the container:
+
+```bash
+docker run -p 3000:3000 lux-in-tenebris
+```
+
+The application will be available at http://localhost:3000
+
+### GitHub Container Registry
+
+The Docker image is automatically built and pushed to GitHub Container Registry on every push to the main branch and on version tags.
+
+Pull the latest image:
+
+```bash
+docker pull ghcr.io/[username]/lux-in-tenebris:latest
+```
+
+Run from GHCR:
+
+```bash
+docker run -p 3000:3000 ghcr.io/[username]/lux-in-tenebris:latest
+```

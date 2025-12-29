@@ -164,3 +164,41 @@ font-family: bebas-neue-pro, sans-serif;
 - Production build outputs to `.svelte-kit/` and `/build`
 - Uses `@sveltejs/adapter-node` for Node.js deployment
 - Preview with `npm run preview` after building
+
+## Docker & Deployment
+
+### Dockerfile
+Multi-stage build using Node.js 22 Alpine:
+- **Build stage**: Installs pnpm, dependencies, and builds the application
+- **Production stage**: Runs the built app with production dependencies only
+- Exposes port 3000
+- Uses `.dockerignore` to exclude unnecessary files
+
+### GitHub Actions CI/CD
+**Workflow**: `.github/workflows/docker-build-push.yml`
+
+Automatically builds and pushes Docker images to GitHub Container Registry (GHCR):
+- **Triggers**: Push to `main` branch, version tags (`v*`), or manual dispatch
+- **Registry**: `ghcr.io`
+- **Tagging strategy**:
+  - Branch names (e.g., `main`)
+  - Semantic versions from tags (e.g., `v1.2.3` → `1.2.3`, `1.2`, `1`)
+  - Git SHA with branch prefix
+  - `latest` tag for default branch
+- **Cache**: Uses GitHub Actions cache for faster builds
+- **Permissions**: Requires `contents: read` and `packages: write`
+
+### Running the Container
+```bash
+# Build locally
+docker build -t lux-in-tenebris .
+
+# Run locally
+docker run -p 3000:3000 lux-in-tenebris
+
+# Pull from GHCR
+docker pull ghcr.io/[username]/lux-in-tenebris:latest
+
+# Run from GHCR
+docker run -p 3000:3000 ghcr.io/[username]/lux-in-tenebris:latest
+```
