@@ -4,12 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a SvelteKit application using:
+This is a concert photo gallery for CVJM Jugendkultur & Musik e.V. with a clean, minimalist design on a black background.
+
+**Tech Stack:**
 - **Svelte 5** (with modern runes syntax like `$props()`)
 - **TypeScript** with strict mode enabled
 - **Tailwind CSS 4** for styling
 - **Node.js adapter** for deployment
 - **pnpm** as the package manager
+
+**Design:**
+- Black background for photo focus
+- Adobe Font: **Bebas Neue Pro** (Project ID: `auh6rjy`)
 
 ## Development Commands
 
@@ -85,6 +91,21 @@ This project uses Svelte 5's runes:
 - Tailwind CSS 4 configured via Vite plugin (no separate config file needed)
 - Global styles in `src/routes/layout.css`
 - Component-scoped styles use `<style>` blocks in `.svelte` files
+
+### Typography - Bebas Neue Pro
+The project uses Adobe Fonts (Project ID: `auh6rjy`).
+
+**Font family CSS:**
+```css
+font-family: bebas-neue-pro, sans-serif;
+```
+
+**Available weights:**
+- Thin: `font-weight: 100` (normal and italic)
+- Light: `font-weight: 200` (normal and italic)
+- Regular: `font-weight: 400` (normal and italic)
+- Middle: `font-weight: 500` (normal and italic)
+- Bold: `font-weight: 600` (normal and italic)
 
 ## Build Output
 - Production build outputs to `.svelte-kit/` and `/build`
