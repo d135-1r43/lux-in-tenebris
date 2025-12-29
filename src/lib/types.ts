@@ -12,7 +12,7 @@ export interface GalleryImage {
 // Directus API types
 export interface DirectusPortfolioItem {
 	id: string;
-	image: string; // UUID of the image file
+	photo: string; // UUID of the photo file
 	band_name: string;
 	location: string | null;
 	date: string;

@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	try {
 		// Build the Directus API query for portfolio items
 		const params = new URLSearchParams({
-			'fields': 'id,image,band_name,location,date,caption',
+			'fields': 'id,photo,band_name,location,date,caption',
 			'limit': '100',
 			'sort': '-date'
 		});
@@ -57,7 +57,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		// Fetch file details for each portfolio item and filter by folder
 		const imagesPromises = result.data.map(async (item) => {
 			try {
-				const file = await fetchFileDetails(item.image, fetch);
+				const file = await fetchFileDetails(item.photo, fetch);
 
 				// Only include images from the Lux in Tenebris folder
 				if (file.folder === LUX_IN_TENEBRIS_FOLDER) {
@@ -65,7 +65,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 				}
 				return null;
 			} catch (err) {
-				console.error(`Failed to fetch file details for ${item.image}:`, err);
+				console.error(`Failed to fetch file details for ${item.photo}:`, err);
 				return null;
 			}
 		});
