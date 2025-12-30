@@ -16,6 +16,7 @@ This is a concert photo gallery for CVJM Jugendkultur & Musik e.V. with a clean,
 **Design:**
 - Black background for photo focus
 - Adobe Font: **Bebas Neue Pro** (Project ID: `auh6rjy`)
+- Favicon: ☩ (cross symbol) in white on black background
 
 ## Development Commands
 
