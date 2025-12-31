@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   lux-in-tenebris:
-    image: ghcr.io/d135-1r43/lux-in-tenebris:1.0.0
+    image: ghcr.io/d135-1r43/lux-in-tenebris:1.0.1
     container_name: lux-in-tenebris
     restart: unless-stopped
     environment:
