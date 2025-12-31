@@ -9,12 +9,18 @@
 	const siteTitle = 'Lux in Tenebris - Konzertfotografie';
 	const siteDescription = 'Professionelle Konzertfotografie im CVJM Jugendkultur & Musik e.V. Atmosphärische Live-Aufnahmen von Metal- und Rock-Konzerten.';
 	const siteUrl = 'https://lux-in-tenebris.de';
-	const ogImage = data.images[0]?.url || `${siteUrl}/og-image.jpg`;
+	const ogImage = $derived(data.images[0]?.url || `${siteUrl}/og-image.jpg`);
 
-	let images = $state<GalleryImage[]>(data.images);
-	let hasMore = $state(data.hasMore);
+	let images = $state<GalleryImage[]>([]);
+	let hasMore = $state(false);
 	let loading = $state(false);
-	let loadTrigger: HTMLElement;
+	let loadTrigger = $state<HTMLElement>();
+
+	// Initialize state from data
+	$effect(() => {
+		images = data.images;
+		hasMore = data.hasMore;
+	});
 
 	async function loadMore() {
 		if (loading || !hasMore) return;
