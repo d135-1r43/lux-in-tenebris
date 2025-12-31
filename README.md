@@ -84,11 +84,26 @@ The Docker image is automatically built and pushed to GitHub Container Registry 
 Pull the latest image:
 
 ```bash
-docker pull ghcr.io/[username]/lux-in-tenebris:latest
+docker pull ghcr.io/markusherhoffer/lux-in-tenebris:latest
 ```
 
 Run from GHCR:
 
 ```bash
-docker run -p 3000:3000 ghcr.io/[username]/lux-in-tenebris:latest
+docker run -p 3000:3000 ghcr.io/markusherhoffer/lux-in-tenebris:latest
 ```
+
+### Portainer Deployment
+
+Deploy to production using Docker Compose:
+
+```bash
+cd portainer
+docker-compose up -d
+```
+
+The `portainer/docker-compose.yml` configuration:
+- Uses versioned tag (e.g., `v1.0.0`)
+- Connects to `nginx-proxy-manager` external network
+- Exposes port 3000
+- Auto-restart enabled

@@ -243,6 +243,8 @@ Automatically monitors and updates dependencies:
 - **Pull requests**: Limited to prevent spam (10 for npm, 5 for Actions/Docker)
 
 ### Running the Container
+
+**Local development:**
 ```bash
 # Build locally
 docker build -t lux-in-tenebris .
@@ -251,8 +253,28 @@ docker build -t lux-in-tenebris .
 docker run -p 3000:3000 lux-in-tenebris
 
 # Pull from GHCR
-docker pull ghcr.io/[username]/lux-in-tenebris:latest
+docker pull ghcr.io/markusherhoffer/lux-in-tenebris:latest
 
 # Run from GHCR
-docker run -p 3000:3000 ghcr.io/[username]/lux-in-tenebris:latest
+docker run -p 3000:3000 ghcr.io/markusherhoffer/lux-in-tenebris:latest
 ```
+
+**Production deployment with Portainer:**
+```bash
+# Deploy using docker-compose
+cd portainer
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop and remove
+docker-compose down
+```
+
+**Deployment configuration**: `portainer/docker-compose.yml`
+- Uses versioned tag (e.g., `v1.0.0`)
+- Connects to `nginx-proxy-manager` external network for reverse proxy
+- Exposes port 3000
+- Auto-restart enabled
+- Watchtower-compatible for automatic updates

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  lux-in-tenebris:
+    image: ghcr.io/markusherhoffer/lux-in-tenebris:v1.0.0
+    container_name: lux-in-tenebris
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    networks:
+      - nginx-proxy-manager
+
+networks:
+  nginx-proxy-manager:
+    external: true
