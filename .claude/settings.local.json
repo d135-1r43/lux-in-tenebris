@@ -8,7 +8,12 @@
       "Bash(pnpm run dev)",
       "WebFetch(domain:directus.herhoffer.net)",
       "Bash(curl:*)",
-      "WebFetch(domain:upload.wikimedia.org)"
+      "WebFetch(domain:upload.wikimedia.org)",
+      "Bash(git tag:*)",
+      "Bash(git push:*)",
+      "Bash(gh run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
