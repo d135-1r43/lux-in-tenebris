@@ -11,16 +11,10 @@
 	const siteUrl = 'https://lux-in-tenebris.de';
 	const ogImage = $derived(data.images[0]?.url || `${siteUrl}/og-image.jpg`);
 
-	let images = $state<GalleryImage[]>([]);
-	let hasMore = $state(false);
+	let images = $state<GalleryImage[]>(data.images);
+	let hasMore = $state(data.hasMore);
 	let loading = $state(false);
 	let loadTrigger = $state<HTMLElement>();
-
-	// Initialize state from data
-	$effect(() => {
-		images = data.images;
-		hasMore = data.hasMore;
-	});
 
 	async function loadMore() {
 		if (loading || !hasMore) return;
