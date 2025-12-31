@@ -233,6 +233,15 @@ Automatically builds and pushes Docker images to GitHub Container Registry (GHCR
 - **Cache**: Uses GitHub Actions cache for faster builds
 - **Permissions**: Requires `contents: read` and `packages: write`
 
+### Dependabot
+**Configuration**: `.github/dependabot.yml`
+
+Automatically monitors and updates dependencies:
+- **npm dependencies**: Weekly updates, grouped by Svelte/SvelteKit and dev dependencies
+- **GitHub Actions**: Weekly updates for workflow dependencies
+- **Docker**: Weekly updates for base images in Dockerfile
+- **Pull requests**: Limited to prevent spam (10 for npm, 5 for Actions/Docker)
+
 ### Running the Container
 ```bash
 # Build locally
