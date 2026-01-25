@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background (optional - remove for transparent) -->
+  <rect width="200" height="200" fill="#000000"/>
+
+  <!-- Cross symbol - geometric design -->
+  <g id="cross">
+    <!-- Vertical bar -->
+    <rect x="85" y="40" width="30" height="120" fill="#FFFFFF"/>
+    <!-- Horizontal bar -->
+    <rect x="40" y="85" width="120" height="30" fill="#FFFFFF"/>
+  </g>
+</svg>
