@@ -34,10 +34,10 @@ npm run check
 # Type checking in watch mode
 npm run check:watch
 
-# Linting (runs Prettier + ESLint)
+# Linting (runs Prettier + ESLint) - ALWAYS run before commits
 npm run lint
 
-# Format code
+# Format code (automatically fixes formatting issues)
 npm run format
 
 # Build for production
@@ -46,6 +46,17 @@ npm run build
 # Preview production build
 npm run preview
 ```
+
+## Development Workflow
+
+**Before creating any commit:**
+
+1. **Format code:** `npm run format` - Auto-fixes formatting
+2. **Run linter:** `npm run lint` - Verify code quality (Prettier + ESLint)
+3. **Type check:** `npm run check` - Verify TypeScript types
+4. **Build test:** `npm run build` - Ensure production build works
+
+**All checks must pass** before committing. This prevents CI failures and maintains code quality.
 
 ## Git Conventions
 
