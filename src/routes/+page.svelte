@@ -12,6 +12,10 @@
 	const siteUrl = 'https://lux-in-tenebris.de';
 	const ogImage = $derived(data.images[0]?.url || `${siteUrl}/og-image.jpg`);
 
+	function jsonLdScript(data: object): string {
+		return '<' + 'script type="application/ld+json">' + JSON.stringify(data) + '<' + '/script>';
+	}
+
 	let images = $state<GalleryImage[]>(data.images);
 	let hasMore = $state(data.hasMore);
 	let loading = $state(false);
@@ -90,40 +94,31 @@
 	<link rel="canonical" href={siteUrl} />
 
 	<!-- Structured Data (JSON-LD) -->
-	{@html `
-	<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Organization",
-		"name": "CVJM Jugendkultur & Musik e.V.",
-		"description": "${siteDescription}",
-		"url": "${siteUrl}",
-		"logo": "${siteUrl}/logo.png",
-		"contactPoint": {
-			"@type": "ContactPoint",
-			"email": "info@blastofeternity.de",
-			"contactType": "customer service"
+	{@html jsonLdScript({
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: 'CVJM Jugendkultur & Musik e.V.',
+		description: siteDescription,
+		url: siteUrl,
+		logo: siteUrl + '/logo.png',
+		contactPoint: {
+			'@type': 'ContactPoint',
+			email: 'info@blastofeternity.de',
+			contactType: 'customer service'
 		},
-		"sameAs": []
-	}
-	<\/script>
-	`}
-
-	{@html `
-	<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "ImageGallery",
-		"name": "Lux in Tenebris - Konzertfotografie",
-		"description": "${siteDescription}",
-		"url": "${siteUrl}",
-		"author": {
-			"@type": "Person",
-			"name": "Markus Herhoffer"
+		sameAs: []
+	})}
+	{@html jsonLdScript({
+		'@context': 'https://schema.org',
+		'@type': 'ImageGallery',
+		name: 'Lux in Tenebris - Konzertfotografie',
+		description: siteDescription,
+		url: siteUrl,
+		author: {
+			'@type': 'Person',
+			name: 'Markus Herhoffer'
 		}
-	}
-	<\/script>
-	`}
+	})}
 </svelte:head>
 
 <Gallery {images} />
