@@ -9,6 +9,14 @@ export interface GalleryImage {
 	aspectRatio: number;
 }
 
+export interface ImageTransformConfig {
+	width: number;
+	quality: number;
+	fit?: 'cover' | 'contain' | 'inside' | 'outside';
+	format?: 'auto' | 'jpg' | 'png' | 'webp';
+	withoutEnlargement?: boolean;
+}
+
 // Directus API types
 export interface DirectusPortfolioItem {
 	id: string;

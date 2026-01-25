@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a concert photo gallery for CVJM Jugendkultur & Musik e.V. with a clean, minimalist design on a black background.
 
 **Tech Stack:**
+
 - **Svelte 5** (with modern runes syntax like `$props()`)
 - **TypeScript** with strict mode enabled
 - **Tailwind CSS 4** for styling
@@ -14,6 +15,7 @@ This is a concert photo gallery for CVJM Jugendkultur & Musik e.V. with a clean,
 - **pnpm** as the package manager
 
 **Design:**
+
 - Black background for photo focus
 - Adobe Font: **Bebas Neue Pro** (Project ID: `auh6rjy`)
 - Favicon: ☩ (cross symbol) in white on black background
@@ -45,6 +47,34 @@ npm run build
 npm run preview
 ```
 
+## Git Conventions
+
+This project uses **gitmoji** commit style for clear, semantic commit messages.
+
+**Format:** `emoji (scope): description`
+
+**Common gitmojis used:**
+
+- ⚡ Performance improvements (e.g., image optimization, caching)
+- ✨ New features
+- 🐛 Bug fixes
+- 💄 UI/styling updates
+- 🔖 Version tags/releases
+- 👷 CI/CD and build configuration
+- 🔍️ SEO improvements
+- 👽️ External API changes (e.g., Directus)
+- 🚨 Linter/warning fixes
+- 📝 Documentation
+
+**Examples:**
+
+```bash
+git commit -m "⚡ (images): Implement responsive image transformations"
+git commit -m "🐛 (scroll): Fix infinite scroll broken by reactive state"
+git commit -m "💄 (favicon): Add a greek cross favicon"
+git commit -m "👷 (docker): Simplify Dockerfile by optimizing layers"
+```
+
 ## Project Structure
 
 ```
@@ -70,6 +100,7 @@ static/             # Publicly served files (robots.txt, etc.)
 ## Key Architectural Patterns
 
 ### SvelteKit Routing
+
 - File-based routing: files in `src/routes/` become routes
 - `+page.svelte` creates a page at that route
 - `+layout.svelte` wraps child routes (uses `{@render children()}`)
@@ -77,36 +108,44 @@ static/             # Publicly served files (robots.txt, etc.)
 - `+page.server.ts` for server-side data loading
 
 ### Svelte 5 Syntax
+
 This project uses Svelte 5's runes:
+
 - `$props()` instead of `export let`
 - `$state()` for reactive state
 - `$derived()` for computed values
 - `{@render children()}` instead of `<slot>`
 
 ### Import Aliases
+
 - `$lib` maps to `src/lib/` (e.g., `import { x } from '$lib/utils'`)
 - `$app` provides SvelteKit runtime modules (navigation, stores, etc.)
 
 ### TypeScript Configuration
+
 - Strict mode enabled
 - `rewriteRelativeImportExtensions` allows `.ts` imports
 - Generated types in `.svelte-kit/tsconfig.json` (don't edit directly)
 - Use `src/app.d.ts` to extend App namespace types (Locals, PageData, Error, etc.)
 
 ### Styling
+
 - Tailwind CSS 4 configured via Vite plugin (no separate config file needed)
 - Global styles in `src/routes/layout.css`
 - Component-scoped styles use `<style>` blocks in `.svelte` files
 
 ### Typography - Bebas Neue Pro
+
 The project uses Adobe Fonts (Project ID: `auh6rjy`).
 
 **Font family CSS:**
+
 ```css
 font-family: bebas-neue-pro, sans-serif;
 ```
 
 **Available weights:**
+
 - Thin: `font-weight: 100` (normal and italic)
 - Light: `font-weight: 200` (normal and italic)
 - Regular: `font-weight: 400` (normal and italic)
@@ -118,12 +157,14 @@ font-family: bebas-neue-pro, sans-serif;
 ### Component Architecture
 
 **Gallery.svelte** - Main container component
+
 - Accepts `images` array via `$props()`
 - Single column layout (max-width 5xl, centered)
 - Generous vertical spacing between items (16-24 units)
 - Consistent presentation across all screen sizes
 
 **GalleryCard.svelte** - Individual image card
+
 - Accepts `image` object via `$props()`
 - Displays image with aspect ratio preservation
 - Caption below image with uniform font sizing:
@@ -136,25 +177,28 @@ font-family: bebas-neue-pro, sans-serif;
 ### Data Structure
 
 **types.ts** - `GalleryImage` interface
+
 ```typescript
 {
-  id: string;
-  url: string;
-  width: number;
-  height: number;
-  festival: string;
-  band: string;
-  year: number;
-  aspectRatio: number;
+	id: string;
+	url: string;
+	width: number;
+	height: number;
+	festival: string;
+	band: string;
+	year: number;
+	aspectRatio: number;
 }
 ```
 
 **gallery-data.ts** - Mock data (deprecated)
+
 - Legacy file with placecats.com mock data
 - Replaced by Directus CMS integration
 - Images now fetched server-side from Directus
 
 ### Layout Behavior
+
 - Black background (`bg-black`) throughout
 - Single column, centered layout with max-width constraint
 - Uniform typography using different font weights for hierarchy
@@ -164,6 +208,7 @@ font-family: bebas-neue-pro, sans-serif;
 ## Directus CMS Integration
 
 ### Overview
+
 The gallery fetches concert photos from a Directus headless CMS instance.
 
 **Base URL**: `https://directus.herhoffer.net`
@@ -171,9 +216,11 @@ The gallery fetches concert photos from a Directus headless CMS instance.
 **Folder**: Lux in Tenebris (`45c69124-0ec6-4031-81a6-e0e78a2a33ad`)
 
 ### Data Loading
+
 **File**: `src/routes/+page.server.ts`
 
 Server-side data loading using SvelteKit's load function:
+
 - Fetches from publicly accessible Directus REST API
 - Filters images by Lux in Tenebris folder UUID
 - Sorts by date (descending)
@@ -181,6 +228,7 @@ Server-side data loading using SvelteKit's load function:
 - Returns up to 100 images
 
 ### Directus Schema
+
 ```typescript
 {
   id: string;              // UUID
@@ -197,7 +245,9 @@ Server-side data loading using SvelteKit's load function:
 ```
 
 ### Data Transformation
+
 Directus items are transformed to GalleryImage format:
+
 - `image.filename_download` → full asset URL
 - `location` → `festival` (defaults to "CVJM" if null)
 - `band_name` → `band`
@@ -206,6 +256,7 @@ Directus items are transformed to GalleryImage format:
 **Note**: The Directus API is publicly accessible and does not require authentication.
 
 ## Build Output
+
 - Production build outputs to `.svelte-kit/` and `/build`
 - Uses `@sveltejs/adapter-node` for Node.js deployment
 - Preview with `npm run preview` after building
@@ -213,16 +264,20 @@ Directus items are transformed to GalleryImage format:
 ## Docker & Deployment
 
 ### Dockerfile
+
 Multi-stage build using Node.js 22 Alpine:
+
 - **Build stage**: Installs pnpm, dependencies, and builds the application
 - **Production stage**: Runs the built app with production dependencies only
 - Exposes port 3000
 - Uses `.dockerignore` to exclude unnecessary files
 
 ### GitHub Actions CI/CD
+
 **Workflow**: `.github/workflows/docker-build-push.yml`
 
 Automatically builds and pushes Docker images to GitHub Container Registry (GHCR):
+
 - **Triggers**: Push to `main` branch, version tags (`v*`), or manual dispatch
 - **Registry**: `ghcr.io`
 - **Tagging strategy**:
@@ -234,9 +289,11 @@ Automatically builds and pushes Docker images to GitHub Container Registry (GHCR
 - **Permissions**: Requires `contents: read` and `packages: write`
 
 ### Dependabot
+
 **Configuration**: `.github/dependabot.yml`
 
 Automatically monitors and updates dependencies:
+
 - **npm dependencies**: Weekly updates, grouped by Svelte/SvelteKit and dev dependencies
 - **GitHub Actions**: Weekly updates for workflow dependencies
 - **Docker**: Weekly updates for base images in Dockerfile
@@ -245,6 +302,7 @@ Automatically monitors and updates dependencies:
 ### Running the Container
 
 **Local development:**
+
 ```bash
 # Build locally
 docker build -t lux-in-tenebris .
@@ -260,6 +318,7 @@ docker run -p 3000:3000 ghcr.io/markusherhoffer/lux-in-tenebris:latest
 ```
 
 **Production deployment with Portainer:**
+
 ```bash
 # Deploy using docker-compose
 cd portainer
@@ -273,6 +332,7 @@ docker-compose down
 ```
 
 **Deployment configuration**: `portainer/docker-compose.yml`
+
 - Uses versioned tag (e.g., `v1.0.0`)
 - Connects to `nginx-proxy-manager` external network for reverse proxy
 - Exposes port 3000

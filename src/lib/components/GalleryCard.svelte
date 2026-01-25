@@ -1,7 +1,13 @@
 <script lang="ts">
 	import type { GalleryImage } from '$lib/types';
+	import { generateSrcset, generateSizes, DIRECTUS_BASE_URL } from '$lib/utils';
 
 	let { image }: { image: GalleryImage } = $props();
+
+	// Extract file ID from URL (format: https://directus.../assets/{id})
+	const fileId = $derived(image.url.split('/assets/')[1]);
+	const srcset = $derived(generateSrcset(fileId, image.width, DIRECTUS_BASE_URL));
+	const sizes = generateSizes();
 </script>
 
 <div class="group">
@@ -9,9 +15,14 @@
 	<div class="overflow-hidden border-2 border-white/30">
 		<img
 			src={image.url}
+			{srcset}
+			{sizes}
+			width={image.width}
+			height={image.height}
 			alt="{image.band} at {image.festival} ({image.year})"
 			class="w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.02]"
 			loading="lazy"
+			decoding="async"
 		/>
 	</div>
 
@@ -29,7 +40,7 @@
 				{image.band}
 			</p>
 			<p
-				class="font-['bebas-neue-pro'] text-lg font-thin tracking-[0.3em] tabular-nums text-white/40 md:text-xl"
+				class="font-['bebas-neue-pro'] text-lg font-thin tracking-[0.3em] text-white/40 tabular-nums md:text-xl"
 			>
 				{image.year}
 			</p>
