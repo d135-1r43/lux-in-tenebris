@@ -103,6 +103,7 @@ docker-compose up -d
 ```
 
 The `portainer/docker-compose.yml` configuration:
+
 - Uses versioned tag (e.g., `v1.0.0`)
 - Connects to `nginx-proxy-manager` external network
 - Exposes port 3000

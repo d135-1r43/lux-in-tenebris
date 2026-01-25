@@ -1,6 +1,11 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import type { DirectusResponse, DirectusPortfolioItem, DirectusFile, GalleryImage } from '$lib/types';
+import type {
+	DirectusResponse,
+	DirectusPortfolioItem,
+	DirectusFile,
+	GalleryImage
+} from '$lib/types';
 
 const DIRECTUS_BASE_URL = 'https://directus.herhoffer.net';
 const LUX_IN_TENEBRIS_FOLDER = '45c69124-0ec6-4031-81a6-e0e78a2a33ad';
@@ -37,10 +42,10 @@ export const GET: RequestHandler = async ({ url, fetch }) => {
 
 	try {
 		const params = new URLSearchParams({
-			'fields': 'id,photo,band_name,location,date,caption',
-			'limit': limit.toString(),
-			'offset': offset.toString(),
-			'sort': '-date'
+			fields: 'id,photo,band_name,location,date,caption',
+			limit: limit.toString(),
+			offset: offset.toString(),
+			sort: '-date'
 		});
 
 		const directusUrl = `${DIRECTUS_BASE_URL}/items/portfolio_images?${params.toString()}`;

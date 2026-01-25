@@ -1,6 +1,11 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import type { DirectusResponse, DirectusPortfolioItem, DirectusFile, GalleryImage } from '$lib/types';
+import type {
+	DirectusResponse,
+	DirectusPortfolioItem,
+	DirectusFile,
+	GalleryImage
+} from '$lib/types';
 
 const DIRECTUS_BASE_URL = 'https://directus.herhoffer.net';
 const LUX_IN_TENEBRIS_FOLDER = '45c69124-0ec6-4031-81a6-e0e78a2a33ad';
@@ -35,10 +40,10 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	try {
 		// Build the Directus API query for initial batch of portfolio items
 		const params = new URLSearchParams({
-			'fields': 'id,photo,band_name,location,date,caption',
-			'limit': '10',
-			'offset': '0',
-			'sort': '-date'
+			fields: 'id,photo,band_name,location,date,caption',
+			limit: '10',
+			offset: '0',
+			sort: '-date'
 		});
 
 		const url = `${DIRECTUS_BASE_URL}/items/portfolio_images?${params.toString()}`;

@@ -7,7 +7,8 @@
 	let { data }: { data: PageData } = $props();
 
 	const siteTitle = 'Lux in Tenebris - Konzertfotografie';
-	const siteDescription = 'Professionelle Konzertfotografie im CVJM Jugendkultur & Musik e.V. Atmosphärische Live-Aufnahmen von Metal- und Rock-Konzerten.';
+	const siteDescription =
+		'Professionelle Konzertfotografie im CVJM Jugendkultur & Musik e.V. Atmosphärische Live-Aufnahmen von Metal- und Rock-Konzerten.';
 	const siteUrl = 'https://lux-in-tenebris.de';
 	const ogImage = $derived(data.images[0]?.url || `${siteUrl}/og-image.jpg`);
 
@@ -60,7 +61,10 @@
 <svelte:head>
 	<title>{siteTitle}</title>
 	<meta name="description" content={siteDescription} />
-	<meta name="keywords" content="Konzertfotografie, Live-Fotografie, Metal, Rock, CVJM, Lux in Tenebris, Blast of Eternity, Konzertfotos" />
+	<meta
+		name="keywords"
+		content="Konzertfotografie, Live-Fotografie, Metal, Rock, CVJM, Lux in Tenebris, Blast of Eternity, Konzertfotos"
+	/>
 	<meta name="author" content="Markus Herhoffer" />
 
 	<!-- Open Graph / Facebook -->
