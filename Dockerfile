@@ -1,7 +1,7 @@
 FROM node:26-alpine AS builder
 RUN npm install -g pnpm
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build
@@ -9,7 +9,7 @@ RUN pnpm run build
 FROM node:26-alpine
 RUN npm install -g pnpm
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --prod --frozen-lockfile
 COPY --from=builder /app/build ./build
 EXPOSE 3000
