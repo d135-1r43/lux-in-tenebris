@@ -6,6 +6,11 @@ updates:
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 10
+    # Keep in sync with pnpm's minimumReleaseAge supply-chain policy
+    # (pnpm 11 default: 24h). Don't open PRs until packages are old
+    # enough to pass `pnpm install --frozen-lockfile` in CI.
+    cooldown:
+      default-days: 1
     groups:
       # Group SvelteKit and related packages
       svelte:
