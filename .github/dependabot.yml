@@ -12,6 +12,46 @@ updates:
     # ensures packages are old enough to pass `pnpm install --frozen-lockfile`.
     cooldown:
       default-days: 2
+    ignore:
+      # TypeScript 7 is the native (Go) port. It ships a much smaller JS
+      # compiler API, and our toolchain still calls into the removed parts:
+      #
+      #   - typescript-eslint (>= 8.63.0, incl. latest 8.64.0)
+      #     `eslint .` crashes at require time in
+      #     @typescript-eslint/typescript-estree:
+      #     "TypeError: Cannot read properties of undefined (reading 'Cjs')".
+      #     Its peer range is explicit: typescript ">=4.8.4 <6.1.0".
+      #
+      #   - svelte-check (>= 4.7.2, incl. latest 4.7.3) via svelte2tsx
+      #     `svelte-check` crashes on startup reading `ts.sys`:
+      #     "TypeError: Cannot read properties of undefined
+      #      (reading 'useCaseSensitiveFileNames')".
+      #     svelte2tsx peer range excludes TS 7: "^4.9.4 || ^5.0.0 || ^6.0.0".
+      #
+      #   - @sveltejs/kit (2.70.x) declares typescript "^5.3.3 || ^6.0.0".
+      #     No crash observed — `svelte-kit sync` and `vite build` both work —
+      #     but it is an unmet peer, so treat TS 7 as unsupported here too.
+      #
+      # Note `vite build` PASSES on TS 7 — esbuild strips types without the
+      # compiler API — so a green build here would hide a dead type-check.
+      # Do not judge this upgrade by the build alone. `tsc --noEmit` also
+      # passes on TS 7, and is NOT a stand-in for svelte-check: it type-checks
+      # 0 of our 6 .svelte files (tsc cannot parse .svelte at all).
+      #
+      # Remove this rule once the upstreams declare TS 7 support:
+      #   - typescript-eslint peer range widens past <6.1.0
+      #     (as of 2026-07-20 even the 8.64.1-alpha canary still says <6.1.0)
+      #   - svelte2tsx / svelte-check peer range includes ^7.0.0
+      #   - @sveltejs/kit peer range includes ^7.0.0
+      # Quick check: npm view typescript-eslint peerDependencies
+      #              npm view svelte2tsx peerDependencies
+      #              npm view @sveltejs/kit peerDependencies
+      # Re-test with `pnpm run lint && pnpm run check && pnpm run build`.
+      #
+      # Also watch minor bumps: typescript-eslint's peer excludes 6.1.x too,
+      # so TS 6.1 may need the same treatment before 7 ever lands.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       # Group SvelteKit and related packages
       svelte:
