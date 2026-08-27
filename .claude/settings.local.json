@@ -19,7 +19,16 @@
 			"Bash(npm run lint)",
 			"Bash(npm run format:*)",
 			"Bash(npm run dev:*)",
-			"Bash(npm run build:*)"
+			"Bash(npm run build:*)",
+			"Bash(gh pr *)",
+			"Bash(pnpm install *)",
+			"Bash(tee /tmp/bishbash-pnpm-install-20260416-000001.log)",
+			"Bash(echo \"EXIT:$?\")",
+			"Bash(tee /tmp/bishbash-npm-lint-20260416-000002.log)",
+			"Bash(tee /tmp/bishbash-npm-check-20260416-000003.log)",
+			"Bash(tee /tmp/bishbash-npm-build-20260416-000004.log)",
+			"Bash(git *)",
+			"Bash(docker build *)"
 		]
 	}
 }
