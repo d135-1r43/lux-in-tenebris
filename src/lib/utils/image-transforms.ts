@@ -1,4 +1,4 @@
-import type { ImageTransformConfig } from '$lib/types';
+import type { ImageTransformConfig } from '#lib/types.ts';
 
 /**
  * Directus base URL for asset transformations

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 
 	const currentYear = new Date().getFullYear();
 </script>
@@ -13,7 +13,7 @@
 				© {currentYear} CVJM Jugendkultur & Musik e.V.
 			</p>
 			<a
-				href="{base}/impressum"
+				href={resolve('/impressum')}
 				data-sveltekit-preload-data
 				class="font-['bebas-neue-pro'] text-sm font-thin tracking-[0.15em] text-white/60 transition-colors hover:text-white/90 md:text-base"
 			>

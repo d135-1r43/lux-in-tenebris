@@ -5,7 +5,7 @@ import type {
 	DirectusPortfolioItem,
 	DirectusFile,
 	GalleryImage
-} from '$lib/types';
+} from '#lib/types.ts';
 
 const DIRECTUS_BASE_URL = 'https://directus.herhoffer.net';
 const LUX_IN_TENEBRIS_FOLDER = '45c69124-0ec6-4031-81a6-e0e78a2a33ad';
