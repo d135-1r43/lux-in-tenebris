@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Gallery from '$lib/components/Gallery.svelte';
+	import Gallery from '#lib/components/Gallery.svelte';
 	import type { PageData } from './$types';
-	import type { GalleryImage } from '$lib/types';
+	import type { GalleryImage } from '#lib/types.ts';
 	import { onMount } from 'svelte';
 
 	let { data }: { data: PageData } = $props();

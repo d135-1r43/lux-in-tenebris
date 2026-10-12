@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { GalleryImage } from '$lib/types';
-	import { generateSrcset, generateSizes, DIRECTUS_BASE_URL } from '$lib/utils';
+	import type { GalleryImage } from '#lib/types.ts';
+	import { generateSrcset, generateSizes, DIRECTUS_BASE_URL } from '#lib/utils/index.ts';
 
 	let { image }: { image: GalleryImage } = $props();
 
